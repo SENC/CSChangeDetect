@@ -51,16 +51,35 @@ extent(croppedImg1);extent(cropImg2)
 
 
 #After manual comparion,,in 2011 there are o pipeline but 2010 has
+#Programmatically highlight the difference
 par(mfrow=c(1,2))
 plotRGB(cropImg2)
 plotRGB(croppedImg1)
 
+#save the raster object as file
 writeRaster(croppedImg1,"Selective2010.tif", format="GTiff")
 writeRaster(cropImg2,"Selective2011.tif", format="GTiff")
 
-
+#[2]  
 pipelineImg2010 <- brick("Selective2010.tif")
 NopipelineImg2011<- brick("Selective2011.tif")
 
 plotRGB(pipelineImg2010);plotRGB(NopipelineImg2011)
 
+#raster object details
+pipelineImg2010
+NopipelineImg2011
+
+
+dim(pipelineImg2010);dim(NopipelineImg2011)
+#get error for teh belwo sice 2 extent are not same
+diff = pipelineImg2010[[1]] - NopipelineImg2011[[1]]
+extent(pipelineImg2010)
+e1 <-extent(NopipelineImg2011)
+e1
+pipelineImg2010v2 <- crop(pipelineImg2010,e1)
+#crop using extent seems not workedbut to set same extent just use the below code
+extent(pipelineImg2010v2);extent(NopipelineImg2011)
+extent(pipelineImg2010v2)=extent(NopipelineImg2011)
+
+pipelineImg2010v2;NopipelineImg2011
