@@ -83,3 +83,7 @@ extent(pipelineImg2010v2);extent(NopipelineImg2011)
 extent(pipelineImg2010v2)=extent(NopipelineImg2011)
 
 pipelineImg2010v2;NopipelineImg2011
+
+
+#check each band
+
