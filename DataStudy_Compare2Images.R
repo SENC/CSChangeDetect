@@ -50,3 +50,17 @@ crs(croppedImg1);crs(cropImg2)
 extent(croppedImg1);extent(cropImg2)
 
 
+#After manual comparion,,in 2011 there are o pipeline but 2010 has
+par(mfrow=c(1,2))
+plotRGB(cropImg2)
+plotRGB(croppedImg1)
+
+writeRaster(croppedImg1,"Selective2010.tif", format="GTiff")
+writeRaster(cropImg2,"Selective2011.tif", format="GTiff")
+
+
+pipelineImg2010 <- brick("Selective2010.tif")
+NopipelineImg2011<- brick("Selective2011.tif")
+
+plotRGB(pipelineImg2010);plotRGB(NopipelineImg2011)
+
