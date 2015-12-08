@@ -41,6 +41,9 @@ cropImg2 <- crop(afterTif,newExtent)
 image(cropImg2)
 par(mfrow=c(3,3))
 plotRGB(png1);plot(croppedImg1);plot(cropImg2)
+#2nd image
+par(mfrow=c(1,4))
+plotRGB(afterTif);plotRGB(cropImg2)
 
 #compare Co-ordinate reference system and extent are same for both 
 crs(croppedImg1);crs(cropImg2)
