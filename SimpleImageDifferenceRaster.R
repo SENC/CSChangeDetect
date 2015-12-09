@@ -29,6 +29,9 @@ projection(correctedImg)<-projection(NopipelineImg2011)
 #it returs the cell values in matrix format
 hasValues(correctedImg)
 diff <- NopipelineImg2011[1:705,1:1776] - pipelineImg2010[1:705,1:1776]
+
+diffRev <- pipelineImg2010[1:705,1:1776]-NopipelineImg2011[1:705,1:1776]
+
 #shold match with ncell of raster object
 dim(diff)
 #can check raster objetct has pixel values 
@@ -48,3 +51,13 @@ plot(correctedImg)
 image(correctedImg)
 writeRaster(correctedImg,"ImgDifference.tif", format="GTiff",overwrite=T)
 #help("writeFormats")
+
+
+#rev differec - before (pipeline) - after
+
+correctedImgRev <- brick (NopipelineImg2011,nrows=705,ncols=1776,crs=NA,nl=3)
+correctedImgRev
+extent(correctedImgRev) <- extent(NopipelineImg2011)
+projection(correctedImgRev)<-projection(NopipelineImg2011)
+values(correctedImgRev) <- diffRev
+plot(correctedImgRev)
