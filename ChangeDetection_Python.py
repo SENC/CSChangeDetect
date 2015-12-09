@@ -1,12 +1,23 @@
 # -*- coding: utf-8 -*-
 """
 Spyder Editor
-Change detection using  registered satellite images - 2 img on same location
-Simple image difference techique
+Date: 9-Dec-2015
+Developer: Senthil Chidambaram
+Ref:Geo Spatial Analysis, Joel 
+Scope: 
+Change detection using  co-registered satellite images - 2 img on same location
+Simple image difference techique 
+
+Logic:
+[1] Check dimension,extent, projection for 2 images are same
+[2] Convert image in to array and subtract the numpy array-> AfterImage - BeforeImage
+[3] Get the difference and Classify/group the pixel 
+[4] color each class/group and mask insiginifcant changes
 
 Note: This code works for 3 band Satellite images [Blue,Green,Red] 
 Since the input file is limited hardcoded some dimension [3,2727,4614] OR [3,705,1776]
 Please change the dimension if you try with your own image
+Code has to be refactored
 
 """
 import gdal,gdalnumeric
@@ -36,7 +47,7 @@ arrayNoPipelineImg=gdalnumeric.LoadFile(satImgAfter).astype(np.int8)
 #diff=arrayImg2[0:704,0:1775]-arrayImg1[0:704,1:1775]
 # image difference betwee img2-img1
 #AfterImage - before image
-#below commented code to check we are getiig black [0,0,0] image
+#below commented code to check are we getiig black [0,0,0] image since no difference
 #diff=arrayPipelineImgPreProcessed- arrayPipelineImgPreProcessed
 
 if (arrayPipelineImg.shape ==arrayNoPipelineImg.shape):
