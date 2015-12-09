@@ -21,19 +21,21 @@ arrayPipelineImgPreProcessed= arrayPipelineImg[:3,:705,:1776]
 #diff=arrayImg2[0:704,0:1775]-arrayImg1[0:704,1:1775]
 # image difference betwee img2-img1
 #AfterImage - before image
-#diff=arrayNoPipelineImg-arrayPipelineImgPreProcessed
+#below commented code to check we are getiig black [0,0,0] image
+#diff=arrayPipelineImgPreProcessed- arrayPipelineImgPreProcessed
+diff=arrayNoPipelineImg-arrayPipelineImgPreProcessed
 
 #Before image - after image to see the diff
-diff=arrayPipelineImgPreProcessed - arrayNoPipelineImg
+#diff=arrayPipelineImgPreProcessed - arrayNoPipelineImg
 
 #classify images based on relvant group pixels-significant changes
-classes=np.histogram(diff,bins=6)[1]
+classes=np.histogram(diff,bins=4)[1]
 #print ("class :" , (classes))
 
 # To mask insigificant changes as just black 
 lookup=[ [0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,255,0],[255,0,0]]
 
-#lookup=[ [255,255,255],[0,64,31],[0,64,31],[0,64,31],[0,255,0],[255,0,0]]
+#lookup=[ [255,0,0],[255,0,0],[255,0,0],[255,0,0],[0,255,0],[255,0,0]]
 start=1
 #print ("diff shape", diff.shape[0])
 #setup output imag array with size same as diff - 3L,mRows,nCol
@@ -45,4 +47,4 @@ for i in range(len(classes)):
    for j in range(len(lookup[i])):
        rgbDifference = gdalnumeric.numpy.choose( mask, (rgbDifference[j], lookup[i][j]))
    start = classes[i]+1
-gdalnumeric.SaveArray(rgbDifference, "T:/DifferenceImageVegMask.tif", format="GTiff", prototype=satImgAfter)
+gdalnumeric.SaveArray(rgbDifference, "T:/DifferenceImage.tif", format="GTiff", prototype=satImgAfter)
