@@ -1,0 +1,59 @@
+#compute smaller rows so can apply the logic in entire array
+newArray2 = head(arrayNoPipeline)
+newArray1 = head(arrayPipeline)
+
+summary(newArray1);dim(newArray2)
+
+newArray2
+
+newArray1
+
+newArrayDiff <- newArray1 - newArray2
+newArrayDiff
+
+# % of changes 
+changes <- newArrayDiff/newArray2
+changes
+
+# Set the thershold value 
+thershold = 0.25
+
+#compare with thershold - TRUE -FALSE
+changes <- ifelse(newArrayDiff<0,(changes *-1),changes)
+changes
+#changes2 <- changes
+newArrayDiff
+
+thershold < (newArrayDiff/newArray2) #always false for neagtive diff if any
+
+
+sigchangesIndex <-  which(changes>thershold)
+
+sigchangesIndex
+
+
+#tru false matrix
+issigchanges <- (thershold < changes)
+issigchanges
+
+#sigchanges1
+
+#get significant changed pixel values
+#newArrayDiff[which(issigchanges)]
+
+#index 
+sigchangesIndex=which(issigchanges)
+sigchangesIndex
+
+#set the actual pixel (significant change) values where 1 
+
+sigChangePixelValues <- newArrayDiff[which(sigchanges1)]
+
+sigChangePixelValues
+
+
+sigChangePixelValues= ifelse( (sigChangePixelValues <0) ,(sigChangePixelValues*-1),sigChangePixelValues)
+
+#new array with siginifcatn changes and rest 0 for all
+png1_class <- ifelse(issigchanges=="TRUE",sigChangePixelValues,0)
+png1_class
